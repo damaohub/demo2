@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { NavBar, Icon, Modal, WingBlank, ImagePicker } from 'antd-mobile';
-import { Flex } from 'antd-mobile';
+import {findDomNode}  from 'react-dom'
+import { Flex, NavBar, Icon, Modal, WingBlank, ImagePicker, List } from 'antd-mobile';
 import './icons/iconfont.css'
 import './App.less';
+import { fabric } from 'fabric';
+const canvas = new fabric.Canvas();
 
 function closest(el, selector) {
   const matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
@@ -29,10 +31,17 @@ class App extends Component {
     this.state = {
       modal1: false,
       modal2: false,
+      modal3: false,
       files: data,
     };
   }
-
+  componentDidMount() {
+    const el = document.getElementById('c')
+    canvas.initialize(el, {
+    	height: 300,
+      width: 300,
+    });
+  }
   showModal = key => (e) => {
     e.preventDefault(); // 修复 Android 上点击穿透
     this.setState({
@@ -84,14 +93,17 @@ class App extends Component {
           <Flex.Item>
             <i className="iconfont icon-chexiaoyou"></i>
           </Flex.Item>
-          <Flex.Item>
+          <Flex.Item onClick={this.showModal('modal3')}>
             <i className="iconfont icon-ziyuan"></i> 
           </Flex.Item>
           <Flex.Item>
             <i className="iconfont icon-ichaxun"></i>
           </Flex.Item>
         </Flex>
-
+       
+        <div>
+        <canvas id="c"></canvas>
+        </div>
 
         <Flex className="text-align-center options" >
           <Flex.Item  onClick={this.showModal('modal1')}>
@@ -216,6 +228,26 @@ class App extends Component {
             
             />
           </WingBlank>
+        </Modal>
+        <Modal
+          popup
+          visible={this.state.modal3}
+          onClose={this.onClose('modal3')}
+          animationType="slide-up"
+          closable
+          title={'管理图层'}
+        >
+        <WingBlank>
+          <List>
+            <List.Item
+              thumb={this.state.files[0].url}
+        
+            >
+              上传图片1.jpg
+            </List.Item>
+          </List>
+
+        </WingBlank>
         </Modal>
 
       </div>
