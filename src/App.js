@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import {findDomNode}  from 'react-dom'
 import { Flex, NavBar, Icon, Modal, WingBlank, ImagePicker, List } from 'antd-mobile';
 import './icons/iconfont.css'
 import './App.less';
 import { fabric } from 'fabric';
-const canvas = new fabric.Canvas();
+
 
 function closest(el, selector) {
   const matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
@@ -36,11 +35,24 @@ class App extends Component {
     };
   }
   componentDidMount() {
-    const el = document.getElementById('c')
-    canvas.initialize(el, {
-    	height: 300,
-      width: 300,
-    });
+    const window_width =  document.documentElement.clientWidth
+    const window_height =  document.documentElement.clientHeight
+    const canvas_height = window_height-45-48-82
+    const canvas = new fabric.Canvas('d', {
+      width: window_width,
+      height: canvas_height,
+    })
+
+
+    fabric.Image.fromURL("https://maochenhui.top/images/phone.png", function(img) {
+      img.scale(0.6)
+      img.width = 368
+      img.height = 716
+      canvas.add(img)
+      img.center()
+    // 　canvas.setActiveObject(img)
+    })
+    canvas.renderAll();
   }
   showModal = key => (e) => {
     e.preventDefault(); // 修复 Android 上点击穿透
@@ -101,8 +113,8 @@ class App extends Component {
           </Flex.Item>
         </Flex>
        
-        <div>
-        <canvas id="c"></canvas>
+        <div className="main">
+        <canvas id="d"></canvas>
         </div>
 
         <Flex className="text-align-center options" >

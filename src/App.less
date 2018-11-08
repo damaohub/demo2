@@ -5,9 +5,16 @@ body{background: #fff;}
 .App {
    .am-navbar{
        background: #49e3bf;
+       position: fixed;
+       width: 100%;
+       z-index: 100;
    }
     .actions{
         background: #F0F0F0;
+        position: fixed;
+        z-index: 100;
+        top: 45px;
+        width: 100%;
         padding: 10px 0;
         .iconfont{
             font-size: 25px;
@@ -16,12 +23,12 @@ body{background: #fff;}
     }
     .options{
         position: fixed;
-        bottom: 10px;
+        bottom: 0;
         width: 100%;
         .am-flexbox-item{
             padding-top: 5px; 
             .iconfont{
-                font-size: 36px;
+                font-size: 30px;
                 background: #1291be;
                 color: #fff;
                 border-radius: 10px;
@@ -37,7 +44,10 @@ body{background: #fff;}
             
         }
     }
-    
+    .main{
+        position: relative;
+        top: 93px;
+    }
   }
 
 .am-modal-content{
